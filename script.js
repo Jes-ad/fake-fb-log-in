@@ -1,24 +1,31 @@
-document.getElementById('loginForm').addEventListener('submit', function (event) {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    const loginForm = document.getElementById('loginForm');
 
-    // Get email and password from input fields
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
 
-    // Here you would normally send data to a backend server
-    // For the purpose of this mock-up, we'll simply show it in the console
-    console.log('Email:', email);
-    console.log('Password:', password);
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMessage = document.getElementById('errorMessage');
 
-    // Store data (for educational purposes only, no real storage here)
-    localStorage.setItem('email', email);
-    localStorage.setItem('password', password);
+            // Clear previous error messages
+            errorMessage.textContent = '';
 
-    // Simulate login success
-    if (email && password) {
-        alert('Logged in successfully!');
-        window.location.href = 'welcome.html'; // Redirect to another page (e.g., a "Welcome" page)
-    } else {
-        document.getElementById('errorMessage').textContent = 'Invalid email or password';
+            if (email === '' || password === '') {
+                errorMessage.textContent = 'Please enter both email and password';
+                return;
+            }
+
+            // Save login data (for educational purposes only)
+            localStorage.setItem('email', email);
+            localStorage.setItem('password', password);
+            console.log('Email:', email);
+            console.log('Password:', password);
+
+            // Simulate successful login
+            alert('Logged in successfully!');
+            window.location.href = 'welcome.html'; // Redirect to another page
+        });
     }
 });
