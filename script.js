@@ -7,21 +7,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
-            const errorMessage = document.getElementById('errorMessage');
+            const errorMessage = document.createElement('p');
+            errorMessage.style.color = 'red';
+            errorMessage.style.fontSize = '14px';
+            errorMessage.style.marginTop = '10px';
 
             // Clear previous error messages
-            errorMessage.textContent = '';
-
-            if (email === '' || password === '') {
-                errorMessage.textContent = 'Please enter both email and password';
-                return;
+            if (document.querySelector('.error-message')) {
+                document.querySelector('.error-message').remove();
             }
 
-            // Save login data (for educational purposes only)
-            localStorage.setItem('email', email);
-            localStorage.setItem('password', password);
-            console.log('Email:', email);
-            console.log('Password:', password);
+            if (email === '' || password === '') {
+                errorMessage.textContent = 'Please enter both email and password.';
+                errorMessage.classList.add('error-message');
+                loginForm.appendChild(errorMessage);
+                return;
+            }
 
             // Simulate successful login
             alert('Logged in successfully!');
